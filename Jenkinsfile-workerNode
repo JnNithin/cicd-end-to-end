@@ -1,0 +1,75 @@
+//import library
+@Library('jenkinsSharedLib') _
+
+
+pipeline {
+    agent any
+
+    properties([
+        parameters([
+            choice(choices: ['apply', 'destroy'], description: 'Select Terraform action', name: 'ACTION')
+        ])
+    ])
+
+    stages {
+        stage('CheckOut') {
+            steps {
+                git credentialsId: 'bbc69362-59e8-44be-95c6-39f5109027cf',
+                url: 'https://github.com/livevil8/cicd-end-to-end',
+                branch: 'main'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                script {
+                    terraformInit()
+                }
+            }
+        }
+        stage('Terraform Validate and Format') {
+            steps {
+                script {
+                    terraformValidateAndFormat()
+                }
+            }
+        }
+        stage('Plan') {
+            steps {
+                script {
+                    terraformPlan('backend-planFile.tfplan')
+                }
+            }
+        }
+        stage('ApplyOrDestroy') {
+            steps {
+                script {
+                    def terraformAction = params.ACTION
+                    try {
+                        // Use tfplan file based on the selected action
+                        if (terraformAction == 'apply') {
+                            sh 'terraform apply backend-planFile.tfplan --auto-approve'
+                        } else if (terraformAction == 'destroy') {
+                            sh 'terraform destroy backend-planFile.tfplan --auto-approve'
+                        }
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE' // Set the build result to FAILURE on error
+                        error "Terraform apply/destroy failed: ${e.message}"
+                    }
+                }
+            }
+        }
+   }
+    post {
+        success {
+            // Conditionally archive artifacts based on successful apply/destroy
+            if (params.ACTION == 'apply' || params.ACTION == 'destroy') {
+                def buildNumber = currentBuild.number
+                def currentDate = new Date().format('yyyyMMdd-HHmmss')
+                def artifactsPath = "artifacts/jenkins-worker-artifacts/${buildNumber}_${currentDate}"
+                
+                // Archive specific artifacts
+                archiveArtifacts artifacts: "Artifacts/jenkins-worker-artifacts/**", fingerprint: true
+            }
+        }
+    }
+}
