@@ -19,22 +19,22 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    def tfInitOutput = sh(script: 'terraform init', returnStdout: true).trim()
-                    echo "Terraform Init Output: ${tfInitOutput}"
+                    terraformInit(dir: 'backend-state')
                 }
             }
         }
         stage('Terraform Validate and Format') {
             steps {
                 script {
-                    terraformValidateAndFormat()
+                    terraformValidateAndFormat(dir: 'backend-state')
                 }
             }
         }
         stage('Plan') {
             steps {
                 script {
-                    terraformPlan('backend-planFile.tfplan')
+                    def terraformDirectory = 'backend-state'
+                    terraformPlan('backend-planFile.tfplan',terraformDirectory)
                 }
             }
         }
@@ -42,12 +42,13 @@ pipeline {
             steps {
                 script {
                     def terraformAction = params.ACTION
+                    def terraformDirectory = 'backend-state'
                     try {
                         // Use tfplan file based on the selected action
                         if (terraformAction == 'apply') {
-                            sh 'terraform apply backend-planFile.tfplan --auto-approve'
+                            sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
                         } else if (terraformAction == 'destroy') {
-                            sh 'terraform destroy backend-planFile.tfplan --auto-approve'
+                            sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan --auto-approve"
                         }
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE' // Set the build result to FAILURE on error
