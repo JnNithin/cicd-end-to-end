@@ -32,7 +32,7 @@ pipeline {
                     def terraformDirectory = 'backend-state'
 
                     // Execute Terraform plan
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
                     }
                 }
@@ -45,7 +45,7 @@ pipeline {
                     def terraformDirectory = 'backend-state'
                     try {
                         // Use tfplan file based on the selected action
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             if (terraformAction == 'apply') {
                                 sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
                             } else if (terraformAction == 'destroy') {
