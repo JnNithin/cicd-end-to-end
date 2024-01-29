@@ -5,7 +5,7 @@ Attempting to resolve main from remote references...
  > git --version # timeout=10
  > git --version # 'git version 2.34.1'
  > git ls-remote -h -- https://github.com/livevil8/cicd-end-to-end # timeout=10
-Found match: refs/heads/main revision 916556b65271cf424d7eb3c6cbb75e6f3f096564
+Found match: refs/heads/main revision 33b3457be3ce168ee13d7dc1e0275242a2191766
 Selected Git installation does not exist. Using Default
 The recommended git tool is: NONE
 No credentials specified
@@ -17,11 +17,11 @@ Fetching upstream changes from https://github.com/livevil8/cicd-end-to-end
  > git --version # timeout=10
  > git --version # 'git version 2.34.1'
  > git fetch --no-tags --force --progress -- https://github.com/livevil8/cicd-end-to-end +refs/heads/*:refs/remotes/origin/* # timeout=10
-Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (main)
+Checking out Revision 33b3457be3ce168ee13d7dc1e0275242a2191766 (main)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+ > git checkout -f 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
 Commit message: "varssal1"
- > git rev-list --no-walk a887b801ac3b40fc893892efe64a4cbb552eee8c # timeout=10
+ > git rev-list --no-walk 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
 [Pipeline] Start of Pipeline
 [Pipeline] node
 Running on Jenkins in /var/lib/jenkins/workspace/remote backend
@@ -40,9 +40,9 @@ Fetching upstream changes from https://github.com/livevil8/cicd-end-to-end
  > git --version # 'git version 2.34.1'
  > git fetch --tags --force --progress -- https://github.com/livevil8/cicd-end-to-end +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
-Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (refs/remotes/origin/main)
+Checking out Revision 33b3457be3ce168ee13d7dc1e0275242a2191766 (refs/remotes/origin/main)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+ > git checkout -f 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
 Commit message: "varssal1"
 [Pipeline] }
 [Pipeline] // stage
@@ -64,14 +64,14 @@ Fetching upstream changes from https://livevil8@github.com/livevil8/cicd-end-to-
  > git --version # 'git version 2.34.1'
  > git fetch --tags --force --progress -- https://livevil8:%24{GITHUB_TOKEN}@github.com/livevil8/cicd-end-to-end.git +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
-Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (refs/remotes/origin/main)
+Checking out Revision 33b3457be3ce168ee13d7dc1e0275242a2191766 (refs/remotes/origin/main)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+ > git checkout -f 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
  > git branch -a -v --no-abbrev # timeout=10
  > git branch -D main # timeout=10
- > git checkout -b main 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+ > git checkout -b main 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
 Commit message: "varssal1"
-First time build. Skipping changelog.
+ > git rev-list --no-walk 33b3457be3ce168ee13d7dc1e0275242a2191766 # timeout=10
 [Pipeline] }
 [Pipeline] // withCredentials
 [Pipeline] }
@@ -87,3 +87,8 @@ First time build. Skipping changelog.
 [Pipeline] stage
 [Pipeline] { (Terraform Validate and Format)
 Stage "Terraform Validate and Format" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Plan)
+Stage "Plan" skipped due to earlier failure(s)
