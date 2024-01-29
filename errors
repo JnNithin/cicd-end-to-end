@@ -1,38 +1,89 @@
-[Pipeline] { (Debug)
+Started by user admin
+Obtained Jenkinsfile-backend from git https://github.com/livevil8/cicd-end-to-end
+Loading library shared-lib@main
+Attempting to resolve main from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git ls-remote -h -- https://github.com/livevil8/cicd-end-to-end # timeout=10
+Found match: refs/heads/main revision 916556b65271cf424d7eb3c6cbb75e6f3f096564
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/remote backend@libs/410f6702fee64f82f9fbbfc9d046de8e9d483ee897e9ce76ea1b4b769b7a6657/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/livevil8/cicd-end-to-end # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/livevil8/cicd-end-to-end
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --no-tags --force --progress -- https://github.com/livevil8/cicd-end-to-end +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+Commit message: "varssal1"
+ > git rev-list --no-walk a887b801ac3b40fc893892efe64a4cbb552eee8c # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/remote backend
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/remote backend/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/livevil8/cicd-end-to-end # timeout=10
+Fetching upstream changes from https://github.com/livevil8/cicd-end-to-end
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://github.com/livevil8/cicd-end-to-end +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+Commit message: "varssal1"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (CheckOut)
+[Pipeline] withCredentials
+Masking supported pattern matches of $GITHUB_TOKEN
+[Pipeline] {
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/remote backend/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://livevil8:%24{GITHUB_TOKEN}@github.com/livevil8/cicd-end-to-end.git # timeout=10
+Fetching upstream changes from https://livevil8@github.com/livevil8/cicd-end-to-end.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://livevil8:%24{GITHUB_TOKEN}@github.com/livevil8/cicd-end-to-end.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 916556b65271cf424d7eb3c6cbb75e6f3f096564 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 916556b65271cf424d7eb3c6cbb75e6f3f096564 # timeout=10
+Commit message: "varssal1"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Terraform Init)
 [Pipeline] script
 [Pipeline] {
-[Pipeline] echo
-Jenkins Home: /var/lib/jenkins
-[Pipeline] echo
-Jenkins User: jenkins
-[Pipeline] sh
-+ groups
-[Pipeline] echo
-Groups: jenkins
-[Pipeline] sh
-+ docker --version
-Docker version 24.0.7, build afdd53b
-[Pipeline] sh
-+ docker info
-Client: Docker Engine - Community
- Version:    24.0.7
- Context:    default
- Debug Mode: false
- Plugins:
-  buildx: Docker Buildx (Docker Inc.)
-    Version:  v0.11.2
-    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
-  compose: Docker Compose (Docker Inc.)
-    Version:  v2.21.0
-    Path:     /usr/libexec/docker/cli-plugins/docker-compose
-
-Server:
-ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/info": dial unix /var/run/docker.sock: connect: permission denied
-errors pretty printing info
 [Pipeline] }
 [Pipeline] // script
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
-[Pipeline] { (Build Docker)
-Stage "Build Docker" skipped due to earlier failure(s)
+[Pipeline] { (Terraform Validate and Format)
+Stage "Terraform Validate and Format" skipped due to earlier failure(s)
