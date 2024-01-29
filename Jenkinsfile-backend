@@ -10,9 +10,10 @@ pipeline {
     stages {
         stage('CheckOut') {
             steps {
-                git credentialsId: 'bbc69362-59e8-44be-95c6-39f5109027cf',
-                url: 'https://github.com/livevil8/cicd-end-to-end',
-                branch: 'main'
+                withCredentials([string(credentialsId: 'bbc69362-59e8-44be-95c6-39f5109027cf', variable: 'GITHUB_TOKEN')]) {
+                    // Your git step here, and you can use $GITHUB_TOKEN in the Git URL
+                    git url: 'https://livevil8:${GITHUB_TOKEN}@github.com/livevil8/cicd-end-to-end.git', branch: 'main'
+                }
             }
         }
         stage('Terraform Init') {
