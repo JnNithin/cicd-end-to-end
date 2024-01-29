@@ -1,4 +1,3 @@
-[Pipeline] sh
 + cd backend-state
 + terraform init
 [Pipeline] echo
@@ -31,23 +30,27 @@ Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KE
 [Pipeline] sh
 + cd backend-state
 + terraform plan -out=backend-planFile.tfplan
-[31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mReference to undeclared input variable[0m
+[0m[1mvar.aws_access_key[0m
+  [1mEnter a value:[0m [0m[0m[1mvar.aws_secret_key[0m
+  [1mEnter a value:[0m [0m[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
 [31m│[0m [0m
-[31m│[0m [0m[0m  on main.tf line 2, in provider "aws":
-[31m│[0m [0m   2:   access_key = "${[4mvar.aws_access_key[0m}"[0m
+[31m│[0m [0m[0m  on main.tf line 1:
+[31m│[0m [0m   1: [4mvariable "aws_access_key"[0m {}[0m
 [31m│[0m [0m
-[31m│[0m [0mAn input variable with the name "aws_access_key" has not been declared.
-[31m│[0m [0mThis variable can be declared with a variable "aws_access_key" {} block.
+[31m│[0m [0mThe root module input variable "aws_access_key" is not set, and has no
+[31m│[0m [0mdefault value. Use a -var or -var-file command line argument to provide a
+[31m│[0m [0mvalue for this variable.
 [31m╵[0m[0m
 [31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mReference to undeclared input variable[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
 [31m│[0m [0m
-[31m│[0m [0m[0m  on main.tf line 3, in provider "aws":
-[31m│[0m [0m   3:   secret_key = "${[4mvar.aws_secret_key[0m}"[0m
+[31m│[0m [0m[0m  on main.tf line 2:
+[31m│[0m [0m   2: [4mvariable "aws_secret_key"[0m {}[0m
 [31m│[0m [0m
-[31m│[0m [0mAn input variable with the name "aws_secret_key" has not been declared.
-[31m│[0m [0mThis variable can be declared with a variable "aws_secret_key" {} block.
+[31m│[0m [0mThe root module input variable "aws_secret_key" is not set, and has no
+[31m│[0m [0mdefault value. Use a -var or -var-file command line argument to provide a
+[31m│[0m [0mvalue for this variable.
 [31m╵[0m[0m
 [Pipeline] }
 [Pipeline] // withCredentials
@@ -58,17 +61,3 @@ Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KE
 [Pipeline] stage
 [Pipeline] { (ApplyOrDestroy)
 Stage "ApplyOrDestroy" skipped due to earlier failure(s)
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Trigger Jenkins-Worker Pipeline)
-Stage "Trigger Jenkins-Worker Pipeline" skipped due to earlier failure(s)
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] }
-[Pipeline] // withEnv
-[Pipeline] }
-[Pipeline] // node
-[Pipeline] End of Pipeline
-ERROR: script returned exit code 1
-Finished: FAILURE
