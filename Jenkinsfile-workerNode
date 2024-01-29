@@ -1,5 +1,5 @@
 //import library
-@Library('vars') _
+@Library('vars@main') _
 
 
 pipeline {
