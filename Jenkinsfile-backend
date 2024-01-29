@@ -18,9 +18,10 @@ pipeline {
         }
         stage('Terraform Init') {
             steps {
-                script {
-                    terraformInit(dir: 'backend-state')
-                }
+            script {
+                def tfInitOutput = sh(script: 'cd backend-state && terraform init', returnStdout: true).trim()
+                echo "Terraform Init Output: ${tfInitOutput}"
+                    }
             }
         }
         stage('Terraform Validate and Format') {
