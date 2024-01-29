@@ -5,11 +5,7 @@
 pipeline {
     agent any
 
-    options([
-        parameters([
-            choice(choices: ['apply', 'destroy'], description: 'Select Terraform action', name: 'ACTION')
-        ])
-    ])
+
 
     stages {
         stage('CheckOut') {
