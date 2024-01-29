@@ -21,14 +21,18 @@ pipeline {
             script {
                 def tfInitOutput = sh(script: 'cd backend-state && terraform init', returnStdout: true).trim()
                 echo "Terraform Init Output: ${tfInitOutput}"
-                    }
+                 }
             }
         }
 
         stage('Plan') {
             steps {
                 script {
-                    terraformPlan('backend-state', 'backend-planFile.tfplan')
+                    // Define the directory where Terraform files are located
+                    def terraformDirectory = 'backend-state'
+
+                    // Execute Terraform plan
+                    sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
                 }
             }
         }
