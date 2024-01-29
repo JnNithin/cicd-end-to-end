@@ -1,3 +1,7 @@
+[Pipeline] sh
++ cd backend-state
++ terraform init
+[Pipeline] echo
 Terraform Init Output: [0m[1mInitializing the backend...[0m
 
 [0m[1mInitializing provider plugins...[0m
@@ -21,27 +25,32 @@ commands will detect it and remind you to do so if necessary.[0m
 [Pipeline] { (Plan)
 [Pipeline] script
 [Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
 [Pipeline] sh
 + cd backend-state
 + terraform plan -out=backend-planFile.tfplan
-
-[0m[1m[31mPlanning failed.[0m[1m Terraform encountered an error while generating this plan.[0m
-
-[0m[31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mNo valid credential sources found[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mReference to undeclared input variable[0m
 [31m│[0m [0m
-[31m│[0m [0m[0m  with provider["registry.terraform.io/hashicorp/aws"],
-[31m│[0m [0m  on main.tf line 1, in provider "aws":
-[31m│[0m [0m   1: provider "aws" [4m{[0m[0m
+[31m│[0m [0m[0m  on main.tf line 2, in provider "aws":
+[31m│[0m [0m   2:   access_key = "${[4mvar.aws_access_key[0m}"[0m
 [31m│[0m [0m
-[31m│[0m [0mPlease see https://registry.terraform.io/providers/hashicorp/aws
-[31m│[0m [0mfor more information about providing credentials.
-[31m│[0m [0m
-[31m│[0m [0mError: failed to refresh cached credentials, no EC2 IMDS role found,
-[31m│[0m [0moperation error ec2imds: GetMetadata, request canceled, context deadline
-[31m│[0m [0mexceeded
-[31m│[0m [0m
+[31m│[0m [0mAn input variable with the name "aws_access_key" has not been declared.
+[31m│[0m [0mThis variable can be declared with a variable "aws_access_key" {} block.
 [31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mReference to undeclared input variable[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 3, in provider "aws":
+[31m│[0m [0m   3:   secret_key = "${[4mvar.aws_secret_key[0m}"[0m
+[31m│[0m [0m
+[31m│[0m [0mAn input variable with the name "aws_secret_key" has not been declared.
+[31m│[0m [0mThis variable can be declared with a variable "aws_secret_key" {} block.
+[31m╵[0m[0m
+[Pipeline] }
+[Pipeline] // withCredentials
 [Pipeline] }
 [Pipeline] // script
 [Pipeline] }
@@ -49,3 +58,17 @@ commands will detect it and remind you to do so if necessary.[0m
 [Pipeline] stage
 [Pipeline] { (ApplyOrDestroy)
 Stage "ApplyOrDestroy" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Trigger Jenkins-Worker Pipeline)
+Stage "Trigger Jenkins-Worker Pipeline" skipped due to earlier failure(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
