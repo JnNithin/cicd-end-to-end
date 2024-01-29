@@ -70,7 +70,7 @@ pipeline {
     post {
         success {
             // Store artifacts with dynamic names
-            def buildNumber = currentBuild.number
+            def buildNumber = currentBuild.getNumber()
             def currentDate = new Date().format('yyyyMMdd-HHmmss')
             def artifactsPath = "artifacts/backend-artifacts/${buildNumber}_${currentDate}"
             

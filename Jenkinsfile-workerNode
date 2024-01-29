@@ -63,7 +63,7 @@ pipeline {
         success {
             // Conditionally archive artifacts based on successful apply/destroy
             if (params.ACTION == 'apply' || params.ACTION == 'destroy') {
-                def buildNumber = currentBuild.number
+                def buildNumber = currentBuild.getNumber()
                 def currentDate = new Date().format('yyyyMMdd-HHmmss')
                 def artifactsPath = "artifacts/jenkins-worker-artifacts/${buildNumber}_${currentDate}"
                 
