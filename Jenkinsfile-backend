@@ -79,4 +79,5 @@ pipeline {
                 archiveArtifacts artifacts: "Artifacts/backend-artifacts/**", fingerprint: true
             }
         }
+    }
 }
