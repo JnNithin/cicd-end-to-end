@@ -24,13 +24,7 @@ pipeline {
                     }
             }
         }
-        stage('Terraform Validate and Format') {
-            steps {
-                script {
-                    terraformValidateAndFormat(dir: 'backend-state')
-                }
-            }
-        }
+
         stage('Plan') {
             steps {
                 script {
