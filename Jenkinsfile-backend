@@ -21,7 +21,7 @@ pipeline {
             script {
                 def tfInitOutput = sh(script: 'cd backend-state && terraform init', returnStdout: true).trim()
                 echo "Terraform Init Output: ${tfInitOutput}"
-                 }
+                }
             }
         }
 
@@ -32,7 +32,9 @@ pipeline {
                     def terraformDirectory = 'backend-state'
 
                     // Execute Terraform plan
-                    sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                    }
                 }
             }
         }
@@ -43,10 +45,12 @@ pipeline {
                     def terraformDirectory = 'backend-state'
                     try {
                         // Use tfplan file based on the selected action
-                        if (terraformAction == 'apply') {
-                            sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
-                        } else if (terraformAction == 'destroy') {
-                            sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan --auto-approve"
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                            if (terraformAction == 'apply') {
+                                sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
+                            } else if (terraformAction == 'destroy') {
+                                sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan --auto-approve"
+                            }
                         }
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE' // Set the build result to FAILURE on error
