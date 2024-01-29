@@ -19,7 +19,8 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    terraformInit()
+                    def tfInitOutput = sh(script: 'terraform init', returnStdout: true).trim()
+                    echo "Terraform Init Output: ${tfInitOutput}"
                 }
             }
         }
