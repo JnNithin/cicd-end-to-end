@@ -28,8 +28,7 @@ pipeline {
         stage('Plan') {
             steps {
                 script {
-                    def terraformDirectory = 'backend-state'
-                    terraformPlan('backend-planFile.tfplan',terraformDirectory)
+                    terraformPlan('backend-state', 'backend-planFile.tfplan')
                 }
             }
         }
