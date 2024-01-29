@@ -1,5 +1,5 @@
 //import library
-@Library('TerraformSteps') _
+@Library('vars') _
 
 
 pipeline {
