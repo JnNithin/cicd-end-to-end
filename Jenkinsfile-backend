@@ -77,8 +77,7 @@ pipeline {
                 // Store artifacts with dynamic names
                 def buildNumber = currentBuild.getNumber()
                 def currentDate = new Date().format('yyyyMMdd-HHmmss')
-                def artifactsPath = "./Artifacts/backend-artifacts/${buildNumber}_${currentDate}"
-
+                def artifactsPath = "./Artifacts/backend-artifacts/" + buildNumber + "_" + currentDate
                 // Archive artifacts
                 archiveArtifacts artifacts: "${artifactsPath}/*", fingerprint: true
             }
