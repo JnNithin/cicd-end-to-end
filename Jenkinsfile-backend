@@ -80,7 +80,7 @@ pipeline {
                 def artifactsPath = "./Artifacts/backend-artifacts/${buildNumber}_${currentDate}"
 
                 // Archive artifacts
-                archiveArtifacts artifacts: "${artifactsPath}/*", fingerprint: true
+                archiveArtifacts artifacts: "${artifactsPath}/**", fingerprint: true
             }
         }
     }
