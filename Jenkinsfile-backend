@@ -37,13 +37,14 @@ pipeline {
                         def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
                         
                         // Set AWS credentials as environment variables for Terraform
-                        env.AWS_ACCESS_KEY_ID = awsAccessKey
-                        env.AWS_SECRET_ACCESS_KEY = awsSecretKey
-                        sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                        withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
+                            sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                        }
                     }
                 }
             }
         }
+
         stage('ApplyOrDestroy') {
             steps {
                 script {
@@ -53,9 +54,13 @@ pipeline {
                         // Use tfplan file based on the selected action
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             if (terraformAction == 'apply') {
-                                sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
+                                withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"]) {
+                                    sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
+                                }
                             } else if (terraformAction == 'destroy') {
-                                sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan --auto-approve"
+                                withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"]) {
+                                    sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan --auto-approve"
+                                }
                             }
                         }
                     } catch (Exception e) {
@@ -65,6 +70,7 @@ pipeline {
                 }
             }
         }
+
         stage('Trigger Jenkins-Worker Pipeline') {
             steps {
                 script {
