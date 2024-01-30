@@ -1,60 +1,20 @@
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
+Archiving artifacts
+‘./Artifacts/backend-artifacts/39_20240130-130153/**’ doesn’t match anything, but ‘**’ does. Perhaps that’s what you mean?
+[Pipeline] }
+[Pipeline] // script
+Error when executing success post condition:
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 86e14ec8-6bf8-484e-a2b2-aca786d47bef
+hudson.AbortException: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/39_20240130-130153/**". Configuration error?
+	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:283)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
+	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
+	at org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution.lambda$start$0(SynchronousNonBlockingStepExecution.java:47)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
 
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.[0m
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Plan)
-[Pipeline] script
-[Pipeline] {
-[Pipeline] withCredentials
-Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
-[Pipeline] {
-[Pipeline] sh
-+ cd backend-state
-+ terraform plan -out=backend-planFile.tfplan
-[0m[1mvar.aws_access_key[0m
-  [1mEnter a value:[0m [0m[0m[1mvar.aws_secret_key[0m
-  [1mEnter a value:[0m [0m[31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
-[31m│[0m [0m
-[31m│[0m [0m[0m  on main.tf line 1:
-[31m│[0m [0m   1: [4mvariable "aws_access_key"[0m {}[0m
-[31m│[0m [0m
-[31m│[0m [0mThe root module input variable "aws_access_key" is not set, and has no
-[31m│[0m [0mdefault value. Use a -var or -var-file command line argument to provide a
-[31m│[0m [0mvalue for this variable.
-[31m╵[0m[0m
-[31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mNo value for required variable[0m
-[31m│[0m [0m
-[31m│[0m [0m[0m  on main.tf line 2:
-[31m│[0m [0m   2: [4mvariable "aws_secret_key"[0m {}[0m
-[31m│[0m [0m
-[31m│[0m [0mThe root module input variable "aws_secret_key" is not set, and has no
-[31m│[0m [0mdefault value. Use a -var or -var-file command line argument to provide a
-[31m│[0m [0mvalue for this variable.
-[31m╵[0m[0m
-[Pipeline] }
-[Pipeline] // withCredentials
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (ApplyOrDestroy)
-Stage "ApplyOrDestroy" skipped due to earlier failure(s)
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Trigger Jenkins-Worker Pipeline)
-Stage "Trigger Jenkins-Worker Pipeline" skipped due to earlier failure(s)
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] }
@@ -62,5 +22,5 @@ Stage "Trigger Jenkins-Worker Pipeline" skipped due to earlier failure(s)
 [Pipeline] }
 [Pipeline] // node
 [Pipeline] End of Pipeline
-ERROR: script returned exit code 1
+ERROR: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/39_20240130-130153/**". Configuration error?
 Finished: FAILURE
