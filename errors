@@ -1,10 +1,6 @@
-Archiving artifacts
-‘./Artifacts/backend-artifacts/39_20240130-130153/**’ doesn’t match anything, but ‘**’ does. Perhaps that’s what you mean?
-[Pipeline] }
-[Pipeline] // script
 Error when executing success post condition:
-Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 86e14ec8-6bf8-484e-a2b2-aca786d47bef
-hudson.AbortException: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/39_20240130-130153/**". Configuration error?
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: ae6f1a83-944a-411f-9145-f095230d8c35
+hudson.AbortException: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/41_20240130-131127/**". Configuration error?
 	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:283)
 	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
 	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
@@ -22,5 +18,5 @@ hudson.AbortException: No artifacts found that match the file pattern "./Artifac
 [Pipeline] }
 [Pipeline] // node
 [Pipeline] End of Pipeline
-ERROR: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/39_20240130-130153/**". Configuration error?
+ERROR: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/41_20240130-131127/**". Configuration error?
 Finished: FAILURE
