@@ -77,14 +77,10 @@ post {
             // Store artifacts with dynamic names
             def buildNumber = currentBuild.getNumber()
             def currentDate = new Date().format('yyyyMMdd-HHmmss')
-            def artifactsPath = "./Artifacts/backend-artifacts/${buildNumber}_${currentDate}"
+            def artifactsPath = "./Artifacts/backend-artifacts"
 
-            // Create the Artifacts/backend-artifacts directory if it doesn't exist
-            sh "mkdir -p ${artifactsPath}"
-
-            // Debugging: Print workspace contents
-            echo "Workspace contents:"
-            sh "ls -R"
+             // Copy the existing .tfplan file to the Artifacts directory with a new name
+            sh "cp backend-state/backend-planFile.tfplan ${artifactsPath}/backend-planFile_${buildNumber}_${currentDate}.tfplan"
 
             // Archive artifacts
             archiveArtifacts artifacts: "${artifactsPath}/**", fingerprint: true
