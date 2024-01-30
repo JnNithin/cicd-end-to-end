@@ -85,16 +85,16 @@ pipeline {
         }
     }
     post {
-        success {
-            script {
-                // Store artifacts with dynamic names
-                def buildNumber = currentBuild.getNumber()
-                def currentDate = new Date().format('yyyyMMdd-HHmmss')
-                def artifactsPath = "artifacts/backend-artifacts/${buildNumber}_${currentDate}"
+    success {
+        script {
+            // Store artifacts with dynamic names
+            def buildNumber = currentBuild.getNumber()
+            def currentDate = new Date().format('yyyyMMdd-HHmmss')
+            def artifactsPath = ".\\Artifacts\\backend-artifacts\\${buildNumber}_${currentDate}"
 
-                // Archive artifacts
-                archiveArtifacts artifacts: "Artifacts/backend-artifacts/**", fingerprint: true
-            }
+            // Archive artifacts
+            archiveArtifacts artifacts: "${artifactsPath}/**", fingerprint: true
         }
     }
+}
 }
