@@ -70,20 +70,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Trigger Jenkins-Worker Pipeline') {
-            steps {
-                script {
-                    if (currentBuild.result == 'SUCCESS') {
-                        // Only trigger the worker pipeline if the previous stages were successful
-                        build job: 'Jenkinsfile-workerNode', propagate: false, wait: false
-                    } else {
-                        echo "Skipping worker pipeline trigger due to previous failures."
-                    }
-                }
-            }
-        }
-    }
     post {
     success {
         script {
