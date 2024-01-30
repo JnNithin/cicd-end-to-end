@@ -71,21 +71,25 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            script {
-                // Store artifacts with dynamic names
-                def buildNumber = currentBuild.getNumber()
-                def currentDate = new Date().format('yyyyMMdd-HHmmss')
-                def artifactsPath = "Artifacts/backend-artifacts/" + buildNumber + "_" + currentDate
-                
-                // Debugging: Print workspace contents
-                echo "Workspace contents:"
-                sh "ls -R"
+post {
+    success {
+        script {
+            // Store artifacts with dynamic names
+            def buildNumber = currentBuild.getNumber()
+            def currentDate = new Date().format('yyyyMMdd-HHmmss')
+            def artifactsPath = "./Artifacts/backend-artifacts/${buildNumber}_${currentDate}"
 
-                // Archive artifacts
-                archiveArtifacts artifacts: "${artifactsPath}/*", fingerprint: true
-            }
+            // Create the Artifacts/backend-artifacts directory if it doesn't exist
+            sh "mkdir -p ${artifactsPath}"
+
+            // Debugging: Print workspace contents
+            echo "Workspace contents:"
+            sh "ls -R"
+
+            // Archive artifacts
+            archiveArtifacts artifacts: "${artifactsPath}/**", fingerprint: true
         }
     }
+}
+
 }
