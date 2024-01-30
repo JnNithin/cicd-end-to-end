@@ -1,7 +1,10 @@
++ mkdir -p ./Artifacts/backend-artifacts/46_20240130-133433
+[Pipeline] echo
 Workspace contents:
 [Pipeline] sh
 + ls -R
 .:
+Artifacts
 backend-state
 backupPipelines
 db.sqlite3
@@ -22,6 +25,14 @@ staticfiles
 todoApp
 todos
 vars
+
+./Artifacts:
+backend-artifacts
+
+./Artifacts/backend-artifacts:
+46_20240130-133433
+
+./Artifacts/backend-artifacts/46_20240130-133433:
 
 ./backend-state:
 backend-planFile.tfplan
@@ -92,12 +103,12 @@ index.html
 TerraformSteps.groovy
 [Pipeline] archiveArtifacts
 Archiving artifacts
-‘./Artifacts/backend-artifacts/44_20240130-132504/*’ doesn’t match anything, but ‘*’ does. Perhaps that’s what you mean?
+‘./Artifacts/backend-artifacts/46_20240130-133433/**’ doesn’t match anything, but ‘Artifacts/backend-artifacts/46_20240130-133433/**’ does. Perhaps that’s what you mean?
 [Pipeline] }
 [Pipeline] // script
 Error when executing success post condition:
-Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: a351d0de-1697-4a0b-a5bd-1e1719db39e9
-hudson.AbortException: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/44_20240130-132504/*". Configuration error?
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 5b815406-0625-4cdc-802c-e1b6a1dc3726
+hudson.AbortException: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/46_20240130-133433/**". Configuration error?
 	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:283)
 	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:101)
 	at org.jenkinsci.plugins.workflow.steps.CoreStep$Execution.run(CoreStep.java:71)
@@ -115,5 +126,5 @@ hudson.AbortException: No artifacts found that match the file pattern "./Artifac
 [Pipeline] }
 [Pipeline] // node
 [Pipeline] End of Pipeline
-ERROR: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/44_20240130-132504/*". Configuration error?
+ERROR: No artifacts found that match the file pattern "./Artifacts/backend-artifacts/46_20240130-133433/**". Configuration error?
 Finished: FAILURE
