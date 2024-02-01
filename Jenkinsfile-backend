@@ -23,21 +23,24 @@ pipeline {
             }
         }
 
-stage('Plan') {
-    steps {
-        script {
-            def terraformDirectory = 'backend-state'
-            echo "Terraform Directory: ${terraformDirectory}"
+        stage('Plan') {
+            steps {
+                script {
+                    def terraformDirectory = 'backend-state'
+                    echo "Terraform Directory: ${terraformDirectory}"
 
-            TerraformSteps.withAWSCredentials{
-                echo "AWS Access Key: ${env.AWS_ACCESS_KEY_ID}"
-                echo "AWS Secret Key: ${env.AWS_SECRET_ACCESS_KEY}"
-
-                sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        def awsAccessKey = env.AWS_ACCESS_KEY_ID
+                        def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
+                        
+                        // Set AWS credentials as environment variables for Terraform
+                         withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
+                            sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
+                        }
+                    }
+                }
             }
         }
-    }
-}
 
 
         stage('Apply') {
@@ -45,9 +48,16 @@ stage('Plan') {
                 script {
                     def terraformDirectory = 'backend-state'
                     def tfPlanFile = 'backend-planFile.tfplan'
-                    TerraformSteps.withAWSCredentials{
+                    
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        def awsAccessKey = env.AWS_ACCESS_KEY_ID
+                        def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
+                        
+                        // Set AWS credentials as environment variables for Terraform
+                         withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
                         sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
-                    }                    
+                        }
+                    }                   
                 }
             }
         }
