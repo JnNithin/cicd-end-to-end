@@ -77,7 +77,7 @@ post {
             // Store artifacts with dynamic names
             def buildNumber = currentBuild.getNumber()
             def currentDate = new Date().format('yyyyMMdd-HHmmss')
-            def artifactsPath = "./Artifacts/backend-artifacts"
+            def artifactsPath = "Artifacts/backend-artifacts"
 
              // Copy the existing .tfplan file to the Artifacts directory with a new name
             sh "cp backend-state/backend-planFile.tfplan ${artifactsPath}/backend-planFile_${buildNumber}_${currentDate}.tfplan"
