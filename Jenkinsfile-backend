@@ -29,7 +29,7 @@ stage('Plan') {
             def terraformDirectory = 'backend-state'
             echo "Terraform Directory: ${terraformDirectory}"
 
-            awsCredentials.withAWSCredentials{
+            TerraformSteps.withAWSCredentials{
                 echo "AWS Access Key: ${env.AWS_ACCESS_KEY_ID}"
                 echo "AWS Secret Key: ${env.AWS_SECRET_ACCESS_KEY}"
 
@@ -45,7 +45,7 @@ stage('Plan') {
                 script {
                     def terraformDirectory = 'backend-state'
                     def tfPlanFile = 'backend-planFile.tfplan'
-                    awsCredentials.withAWSCredentials{
+                    TerraformSteps.withAWSCredentials{
                         sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
                     }                    
                 }
