@@ -1,13 +1,42 @@
- cd backend-state
-+ terraform plan -out=backend-planFile.tfplan
-
-[0m[1m[31mPlanning failed.[0m[1m Terraform encountered an error while generating this plan.[0m
-
-[0m[31m╷[0m[0m
-[31m│[0m [0m[1m[31mError: [0m[0m[1mRetrieving AWS account details: validating provider credentials: retrieving caller identity from STS: operation error STS: GetCallerIdentity, https response error StatusCode: 403, RequestID: f5948dd4-848a-469d-b6c0-768cf76b8715, api error SignatureDoesNotMatch: Signature expired: 20240201T185350Z is now earlier than 20240201T193908Z (20240201T195408Z - 15 min.)[0m
-[31m│[0m [0m
-[31m│[0m [0m[0m  with provider["registry.terraform.io/hashicorp/aws"],
-[31m│[0m [0m  on main.tf line 3, in provider "aws":
-[31m│[0m [0m   3: provider "aws" [4m{[0m[0m
-[31m│[0m [0m
-[31m╵[0m[0m
+To perform exactly these actions, run the following command to apply:
+    terraform apply "backend-planFile.tfplan"
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (ApplyOrDestroy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cp backend-state/backend-planFile.tfplan Artifacts/backend-artifacts/backend-planFile_50_20240201-200528.tfplan
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
