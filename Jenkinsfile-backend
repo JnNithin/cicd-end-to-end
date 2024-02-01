@@ -55,6 +55,14 @@ pipeline {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             if (terraformAction == 'apply') {
                                 withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"]) {
+                                    // Print debug information
+                                    echo "Executing Terraform apply"
+                                    echo "Current directory: ${pwd()}"
+                                    echo "Listing files in ${terraformDirectory}:"
+                                    sh "ls -la ${terraformDirectory}"
+
+                                    
+                                    
                                     sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan -auto-approve"
                                 }
                             } else if (terraformAction == 'destroy') {
