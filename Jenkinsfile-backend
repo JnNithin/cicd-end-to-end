@@ -30,7 +30,7 @@ pipeline {
                     def terraformDirectory = 'backend-state'
 
                     // Execute Terraform plan
-                    awsCredentials.withAWSCredentials{
+                    withAWSCredentials{
                         sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
                     }
                 }

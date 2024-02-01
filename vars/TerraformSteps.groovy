@@ -35,7 +35,7 @@ def terraformPlan(planFileName = 'terraform.tfplan') {
     //This includes optional arguement 'planFileName -> default = [terraform.tfplan]'
     //Orelse give the name for plan file -> 'custom-filename.tfplan'
     dir(directory) {
-        sh 'terraform plan -out=${planFileName}'
+        sh "terraform plan -out=${planFileName}"
     }
 }
 
