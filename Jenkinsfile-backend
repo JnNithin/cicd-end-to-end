@@ -56,7 +56,7 @@ pipeline {
                         // Set AWS credentials as environment variables for Terraform
                          withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
                         sh "cd ${terraformDirectory}"
-                        sh "terraform apply backend-planFile"
+                        sh "terraform apply -auto-approve -var-file=backend-planFile"
                         }
                     }                   
                 }
