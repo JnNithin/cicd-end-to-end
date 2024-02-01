@@ -5,6 +5,9 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select action to perform: apply or destroy')
+    }
 
 
     stages {
