@@ -23,19 +23,22 @@ pipeline {
             }
         }
 
-        stage('Plan') {
-            steps {
-                script {
-                    // Define the directory where Terraform files are located
-                    def terraformDirectory = 'backend-state'
+stage('Plan') {
+    steps {
+        script {
+            def terraformDirectory = 'backend-state'
+            echo "Terraform Directory: ${terraformDirectory}"
 
-                    // Execute Terraform plan
-                    awsCredentials.withAWSCredentials{
-                        sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
-                    }
-                }
+            awsCredentials.withAWSCredentials{
+                echo "AWS Access Key: ${env.AWS_ACCESS_KEY_ID}"
+                echo "AWS Secret Key: ${env.AWS_SECRET_ACCESS_KEY}"
+
+                sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
             }
         }
+    }
+}
+
 
         stage('Apply') {
             steps {
