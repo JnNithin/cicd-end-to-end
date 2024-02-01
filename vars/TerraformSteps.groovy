@@ -1,3 +1,15 @@
+// vars/awsCredentials.groovy
+def withAWSCredentials(Closure awsCreds) {
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        def awsAccessKey = env.AWS_ACCESS_KEY_ID
+        def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
+        // Set AWS credentials as environment variables
+        withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
+            awsCreds()
+        }
+    }
+}
+
 def terraformInit() {
     dir(directory) {
         //Execute tfm init

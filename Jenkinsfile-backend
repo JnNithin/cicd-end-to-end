@@ -5,11 +5,6 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select action to perform: apply or destroy')
-    }
-
-
     stages {
         stage('CheckOut') {
             steps {
@@ -35,52 +30,40 @@ pipeline {
                     def terraformDirectory = 'backend-state'
 
                     // Execute Terraform plan
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        def awsAccessKey = env.AWS_ACCESS_KEY_ID
-                        def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
-                        
-                        // Set AWS credentials as environment variables for Terraform
-                        withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
-                            sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
-                        }
+                    awsCredentials.withAWSCredentials{
+                        sh "cd ${terraformDirectory} && terraform plan -out=backend-planFile.tfplan"
                     }
                 }
             }
         }
 
-        stage('ApplyOrDestroy') {
+        stage('Apply') {
             steps {
                 script {
-                    def terraformAction = params.ACTION
                     def terraformDirectory = 'backend-state'
-                    try {
-                        // Use tfplan file based on the selected action
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                            if (terraformAction == 'apply') {
-                                withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"]) {
-                                    // Print debug information
-                                    echo "Executing Terraform apply"
-                                    echo "Current directory: ${pwd()}"
-                                    echo "Listing files in ${terraformDirectory}:"
-                                    sh "ls -la ${terraformDirectory}"
-
-                                    
-                                    
-                                    sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
-                                }
-                            } else if (terraformAction == 'destroy') {
-                                withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}", "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}"]) {
-                                    sh "cd ${terraformDirectory} && terraform destroy backend-planFile.tfplan -auto-approve"
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        currentBuild.result = 'FAILURE' // Set the build result to FAILURE on error
-                        error "Terraform apply/destroy failed: ${e.message}"
-                    }
+                    def tfPlanFile = 'backend-planFile.tfplan'
+                    awsCredentials.withAWSCredentials{
+                        sh "cd ${terraformDirectory} && terraform apply backend-planFile.tfplan --auto-approve"
+                    }                    
                 }
             }
         }
+        // stage('Destroy') {
+        //     steps {
+        //         script {
+        //             // Define the directory where Terraform files are located
+        //             def terraformDirectory = 'backend-state'
+        //             def tfPlanFile = 'backend-planFile.tfplan'
+
+        //             withAWSCredentials {
+        //                 sh "cd ${terraformDirectory}"
+        //                 sh "terraform destroy backend-planFile.tfplan --auto-approve"
+
+        //                 // Additional steps after destroy
+        //             }
+        //         }
+        //     }
+        // }
     }
 post {
     success {
