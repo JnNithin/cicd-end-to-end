@@ -1,18 +1,3 @@
-To perform exactly these actions, run the following command to apply:
-    terraform apply "backend-planFile"
-[Pipeline] }
-[Pipeline] // withEnv
-[Pipeline] }
-[Pipeline] // withCredentials
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Apply)
-[Pipeline] script
-[Pipeline] {
-[Pipeline] withCredentials
 Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
 [Pipeline] {
 [Pipeline] withEnv
@@ -23,7 +8,7 @@ Warning: A secret was passed to "withEnv" using Groovy String interpolation, whi
 [Pipeline] sh
 + cd backend-state
 [Pipeline] sh
-+ terraform apply backendtfplan --auto-approve
++ terraform apply backend-planFile --auto-approve
 [31m╷[0m[0m
 [31m│[0m [0m[1m[31mError: [0m[0m[1mToo many command line arguments[0m
 [31m│[0m [0m
