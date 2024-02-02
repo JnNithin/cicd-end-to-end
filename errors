@@ -1,99 +1,34 @@
-[Pipeline] sh
-+ cd backend-state
-+ terraform init
-[Pipeline] echo
-Terraform Init Output: [0m[1mInitializing the backend...[0m
-
-[0m[1mInitializing provider plugins...[0m
-- Reusing previous version of hashicorp/aws from the dependency lock file
-- Using previously-installed hashicorp/aws v5.34.0
-
-[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
-[0m[32m
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.[0m
+To perform exactly these actions, run the following command to apply:
+    terraform apply "backend-planFile"
 [Pipeline] }
-[Pipeline] // script
+[Pipeline] // withEnv
 [Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Plan)
-[Pipeline] script
-[Pipeline] {
+[Pipeline] // withCredentials
 [Pipeline] }
 [Pipeline] // script
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] stage
 [Pipeline] { (Apply)
-Stage "Apply" skipped due to earlier failure(s)
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] }
-[Pipeline] // withEnv
-[Pipeline] }
-[Pipeline] // node
-[Pipeline] End of Pipeline
-Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: d1819acb-75a9-4da9-a8df-5b1528077093
-java.lang.NoSuchMethodError: No such DSL method 'withAWSCredentials' found among steps [archive, awaitDeploymentCompletion, awsIdentity, bat, build, catchError, cfInvalidate, cfnCreateChangeSet, cfnDelete, cfnDeleteStackSet, cfnDescribe, cfnExecuteChangeSet, cfnExports, cfnUpdate, cfnUpdateStackSet, cfnValidate, checkout, createDeployment, deleteDir, deployAPI, dir, dockerFingerprintFrom, dockerFingerprintRun, ebCreateApplication, ebCreateApplicationVersion, ebCreateConfigurationTemplate, ebCreateEnvironment, ebSwapEnvironmentCNAMEs, ebWaitOnEnvironmentHealth, ebWaitOnEnvironmentStatus, ec2, ec2ShareAmi, echo, ecrDeleteImage, ecrListImages, ecrLogin, ecrSetRepositoryPolicy, elbDeregisterInstance, elbIsInstanceDeregistered, elbIsInstanceRegistered, elbRegisterInstance, emailext, emailextrecipients, envVarsForTool, error, fileExists, findBuildScans, getContext, git, input, invokeLambda, isUnix, junit, lambdaVersionCleanup, library, libraryResource, listAWSAccounts, load, mail, milestone, node, parallel, powershell, properties, publishChecks, publishHTML, pwd, pwsh, readFile, readTrusted, resolveScm, retry, s3Copy, s3Delete, s3DoesObjectExist, s3Download, s3FindFiles, s3PresignURL, s3Upload, script, setAccountAlias, sh, sleep, snsPublish, sshagent, stage, stash, step, timeout, timestamps, tm, tool, unarchive, unstable, unstash, updateIdP, updateTrustPolicy, validateDeclarativePipeline, waitForBuild, waitUntil, warnError, withAWS, withChecks, withContext, withCredentials, withDockerContainer, withDockerRegistry, withDockerServer, withEnv, withGradle, wrap, writeFile, ws] or symbols [GitUsernamePassword, agent, all, allBranchesSame, allOf, always, ant, antFromApache, antOutcome, antTarget, any, anyOf, apiToken, apiTokenProperty, architecture, archiveArtifacts, artifactManager, assembla, assumeRole, authorInChangelog, authorizationMatrix, aws, awsCredentialsProvider, batchFile, bitbucket, bitbucketServer, booleanParam, branch, brokenBuildSuspects, brokenTestsSuspects, browser, buildButton, buildDiscarder, buildDiscarders, buildParameter, buildRetention, buildSelector, buildSingleRevisionOnly, buildUser, buildingTag, builtInNode, caseInsensitive, caseSensitive, certificate, cgit, changeRequest, changelog, changelogBase, changelogToBranch, changeset, checkoutOption, checkoutToSubdirectory, choice, choiceParam, cleanAfterCheckout, cleanBeforeCheckout, cleanWs, client, clientConfiguration, clock, cloneOption, command, contributor, copyArtifactPermission, copyArtifacts, copyartifact, credentials, cron, crumb, culprits, default, defaultDisplayUrlProvider, defaultFolderConfiguration, defaultView, demand, developers, disableConcurrentBuilds, disableRestartFromStage, disableResume, discoverOtherRefs, discoverOtherRefsTrait, docker, dockerCert, dockerServer, dockerTool, dockerfile, downstream, dumb, durabilityHint, email-ext, endpointConfiguration, envVars, envVarsFilter, environment, equals, experimentalFlags, expression, extendedEmailPublisher, file, fileParam, filePath, filter, filters, fingerprint, fingerprints, fisheye, frameOptions, freeStyle, freeStyleJob, fromDocker, fromScm, fromSource, git, gitBranchDiscovery, gitHooks, gitHubBranchDiscovery, gitHubBranchHeadAuthority, gitHubExcludeArchivedRepositories, gitHubExcludeForkedRepositories, gitHubExcludePrivateRepositories, gitHubExcludePublicRepositories, gitHubForkDiscovery, gitHubIgnoreDraftPullRequestFilter, gitHubPullRequestDiscovery, gitHubSshCheckout, gitHubTagDiscovery, gitHubTopicsFilter, gitHubTrustContributors, gitHubTrustEveryone, gitHubTrustNobody, gitHubTrustPermissions, gitLab, gitList, gitSCM, gitTagDiscovery, gitTool, gitUsernamePassword, gitWeb, gitblit, github, githubProjectProperty, githubPush, gitiles, gogs, gradle, group, headRegexFilter, headWildcardFilter, hide, hyperlink, hyperlinkToModels, ignoreOnPush, inbound, inheriting, inheritingGlobal, installSource, isRestartedRun, jdk, jdkInstaller, jgit, jgitapache, jnlp, jobBuildDiscarder, jobName, junitTestResultStorage, kiln, label, lastCompleted, lastDuration, lastFailure, lastGrantedAuthorities, lastStable, lastSuccess, lastSuccessful, lastWithArtifacts, latestSavedBuild, legacy, legacySCM, lfs, list, listSecrets, local, localBranch, localBranchTrait, location, logRotator, loggedInUsersCanDoAnything, mailer, maskPasswords, masterBuild, maven, maven3Mojos, mavenErrors, mavenGlobalConfig, mavenMojos, mavenWarnings, modernSCM, multiBranchProjectDisplayNaming, multibranch, myView, namedBranchesDifferent, newContainerPerStage, node, nodeProperties, nonInheriting, none, nonresumable, not, organizationFolder, overrideIndexTriggers, paneStatus, parallelsAlwaysFailFast, parameters, password, pattern, perBuildTag, permalink, permanent, phabricator, pipeline, pipeline-model, pipeline-model-docker, pipelineTriggers, plainText, plugin, pollSCM, prefix, preserveStashes, previous, profile, projectNamingStrategy, proxy, pruneStaleBranch, pruneStaleTag, pruneTags, queueItemAuthenticator, quietPeriod, rateLimit, rateLimitBuilds, recipients, redmine, refSpecs, remoteName, removePrefix, removePrefixes, requestor, resourceRoot, retainOnlyVariables, rhodeCode, run, runParam, s3CopyArtifact, s3Upload, sSHLauncher, schedule, scmGit, scmRetryCount, scriptApproval, scriptApprovalLink, search, security, shell, simpleBuildDiscarder, skipDefaultCheckout, skipStagesAfterUnstable, slave, sourceRegexFilter, sourceWildcardFilter, sparseCheckoutPaths, specific, ssh, sshPublicKey, sshUserPrivateKey, standard, static, status, string, stringParam, submodule, submoduleOption, suppressAutomaticTriggering, suppressFolderAutomaticTriggering, swapSpace, tag, teamFoundation, teamSlugFilter, terraform, text, textParam, timestamper, timestamperConfig, timezone, tmpSpace, toolLocation, transformations, triggeredBy, unsecured, untrusted, upstream, upstreamDevelopers, user, userIdentity, userOrGroup, userSeed, usernameColonPassword, usernamePassword, value, viewgit, viewsTabBar, weather, withAnt, workspace, x509ClientCert, zip] or globals [TerraformSteps, currentBuild, docker, env, params, pipeline, scm]
-	at org.jenkinsci.plugins.workflow.cps.DSL.invokeMethod(DSL.java:219)
-	at org.jenkinsci.plugins.workflow.cps.CpsScript.invokeMethod(CpsScript.java:124)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:98)
-	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
-	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1225)
-	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
-	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:41)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
-	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:180)
-	at org.kohsuke.groovy.sandbox.GroovyInterceptor.onMethodCall(GroovyInterceptor.java:23)
-	at org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:163)
-	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:178)
-	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:182)
-	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:152)
-	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:152)
-	at com.cloudbees.groovy.cps.sandbox.SandboxInvoker.methodCall(SandboxInvoker.java:17)
-	at org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:105)
-	at WorkflowScript.run(WorkflowScript:33)
-	at ___cps.transform___(Native Method)
-	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:90)
-	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:116)
-	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:85)
-	at jdk.internal.reflect.GeneratedMethodAccessor152.invoke(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
-	at com.cloudbees.groovy.cps.impl.ClosureBlock.eval(ClosureBlock.java:46)
-	at com.cloudbees.groovy.cps.Next.step(Next.java:83)
-	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:152)
-	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:146)
-	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
-	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
-	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:146)
-	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:18)
-	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:51)
-	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:187)
-	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:423)
-	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:331)
-	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:295)
-	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$2.call(CpsVmExecutorService.java:97)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
-	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
-	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
-	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
-Finished: FAILURE
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ cd backend-state
+[Pipeline] sh
++ terraform apply backendtfplan --auto-approve
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mToo many command line arguments[0m
+[31m│[0m [0m
+[31m│[0m [0m[0mExpected at most one positional argument.
+[31m╵[0m[0m
+
+For more help on using this command, run:
+  terraform apply -help
