@@ -63,19 +63,24 @@ pipeline {
                 }
             }
         }
-        // stage('Destroy') {
+
+        //stage('Destroy') {
         //     steps {
         //         script {
-        //             // Define the directory where Terraform files are located
         //             def terraformDirectory = 'backend-state'
-        //             def tfPlanFile = 'backend-planFile.tfplan'
-
-        //             withAWSCredentials {
-        //                 sh "cd ${terraformDirectory}"
-        //                 sh "terraform destroy backend-planFile.tfplan --auto-approve"
-
-        //                 // Additional steps after destroy
-        //             }
+        //             def tfPlanFile = 'backend-planFile'
+                    
+        //             withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '6466376b-9ed7-498e-92cb-9f21eb3aa540', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+        //                 def awsAccessKey = env.AWS_ACCESS_KEY_ID
+        //                 def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
+                        
+        //                 // Set AWS credentials as environment variables for Terraform
+        //                  withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
+        //                 dir(terraformDirectory) {
+        //             sh "terraform destroy ${tfPlanFile}"
+        //         }
+        //                 }
+        //             }                   
         //         }
         //     }
         // }
