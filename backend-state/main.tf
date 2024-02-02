@@ -7,7 +7,7 @@ provider "aws" {
 
 //s3 bucket
 resource "aws_s3_bucket" "enterprice_backend_state" {
-    bucket = "django-docker-ec2-s3-backendBucket"
+    bucket = "django-docker-ec2-backendbucket"
 
     lifecycle {
         prevent_destroy = true
