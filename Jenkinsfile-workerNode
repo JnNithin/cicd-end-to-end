@@ -5,55 +5,30 @@
 pipeline {
     agent any
 
-    options([
-        parameters([
-            choice(choices: ['apply', 'destroy'], description: 'Select Terraform action', name: 'ACTION')
-        ])
-    ])
-
     stages {
         stage('CheckOut') {
             steps {
-                git credentialsId: 'bbc69362-59e8-44be-95c6-39f5109027cf',
-                url: 'https://github.com/livevil8/cicd-end-to-end',
-                branch: 'main'
-            }
-        }
-        stage('Terraform Init') {
-            steps {
-                script {
-                    terraformInit()
+                withCredentials([string(credentialsId: 'gitId', variable: 'GITHUB_TOKEN')]) {
+                    // Your git step here, and you can use $GITHUB_TOKEN in the Git URL
+                    git url: 'https://JnNithin:${GITHUB_TOKEN}@github.com/livevil8/cicd-end-to-end.git', branch: 'main'
                 }
             }
         }
-        stage('Terraform Validate and Format') {
+        stage('Provision EC2 Instance for Jenkins Worker') {
             steps {
                 script {
-                    terraformValidateAndFormat()
-                }
-            }
-        }
-        stage('Plan') {
-            steps {
-                script {
-                    terraformPlan('backend-planFile.tfplan')
-                }
-            }
-        }
-        stage('ApplyOrDestroy') {
-            steps {
-                script {
-                    def terraformAction = params.ACTION
-                    try {
-                        // Use tfplan file based on the selected action
-                        if (terraformAction == 'apply') {
-                            sh 'terraform apply backend-planFile.tfplan --auto-approve'
-                        } else if (terraformAction == 'destroy') {
-                            sh 'terraform destroy backend-planFile.tfplan --auto-approve'
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'YOUR_AWS_CREDENTIALS_ID', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        def awsAccessKey = env.AWS_ACCESS_KEY_ID
+                        def awsSecretKey = env.AWS_SECRET_ACCESS_KEY
+
+                        // Set AWS credentials as environment variables for Terraform
+                        withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
+                            // Use Terraform to provision EC2 instance for Jenkins
+                            dir('jenkins-worker-tfm') {
+                                sh 'terraform init'
+                                sh 'terraform apply --auto-approve'
+                            }
                         }
-                    } catch (Exception e) {
-                        currentBuild.result = 'FAILURE' // Set the build result to FAILURE on error
-                        error "Terraform apply/destroy failed: ${e.message}"
                     }
                 }
             }

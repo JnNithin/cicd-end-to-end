@@ -1,10 +1,12 @@
 //Import security group module 
-module "security_group" {
-  source = "./modules/Security-group"
+module "jenkins_security_group" {
+  source                = "./modules/Security-group"
+  allowed_ingress_ports = [80, 22, 50000, 8080]
+  security_group_name   = "jenkins_sg"
 }
 
 variable "aws_key_pair" {
-    default = "~/aws/aws_keys/pipeline-keys.pem
+    default = "~/aws/aws_keys/pipeline-keys.pem"
 }
 
 data "aws_subnets" "subnets" {
@@ -12,7 +14,7 @@ data "aws_subnets" "subnets" {
 
 variable "desired_ami_id" {
     description = "The required AMI ID"
-    default = "ami-0c7217cdde317cfec"
+    default     = "ami-0c7217cdde317cfec"
 }
 
 variable "instance_count" {
@@ -34,11 +36,12 @@ data "vault_generic_secret" "jenkins_worker" {
 //to use declared variable for AMI -> ${var.desired_ami_id}
 //this is for ec2s
 resource "aws_instance" "instances" {
-    count         = var.instance_count
-    ami           = var.desired_ami_id
-    instance_type = "t2.micro"
-    key_name      = var.aws_key_pair
-    subnet_id     = var.subnet_id
+    count          = var.instance_count
+    ami            = var.desired_ami_id
+    instance_type  = "t2.micro"
+    key_name       = var.aws_key_pair
+    subnet_id      = var.subnet_id
+    security_groups = [module.jenkins_security_group.custom_sg.id]
 
     user_data = <<-EOF
         #!/bin/bash
