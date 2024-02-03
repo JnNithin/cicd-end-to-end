@@ -77,7 +77,7 @@ pipeline {
                          // Set AWS credentials as environment variables for Terraform
                           withEnv(["AWS_ACCESS_KEY_ID=${awsAccessKey}", "AWS_SECRET_ACCESS_KEY=${awsSecretKey}"]) {
                          dir(terraformDirectory) {
-                     sh "terraform destroy ${tfPlanFile}"
+                     sh "terraform destroy"
                  }
                          }
                      }                   
